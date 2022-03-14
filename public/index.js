@@ -1,5 +1,9 @@
 
-$( "#generate-button" ).click(function() {
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+$( "#start-button" ).click(function() {
   const categoryNum = $('#category-num-select').val();
   const pointNum = $('#point-num-select').val();
   const color = $('#color-select').val();
@@ -8,6 +12,6 @@ $( "#generate-button" ).click(function() {
   if ($('#shapeCheck').is(':checked')) {
     shape = 'true'
   }
-  window.location.href = "task.html?category="+categoryNum+"&point="+pointNum+"&level="+level+"&color="+color+"&shape="+shape;
+  window.location.href = "task.html?task="+getRandomInt(6).toString()+"&cnt=0";
 });
 
