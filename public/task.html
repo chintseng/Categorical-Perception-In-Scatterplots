@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>Scatter Plot Generator</title>
+        <link rel="shortcut icon" href="asset/favicon.ico">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link href="./index.css" rel="stylesheet">
+    </head>
+    <body>
+        <path style="fill: yellow;"></path>
+        <!-- <path class="point" style="width: 100px; height: 100px; fill: url('#im1')"></path>
+        <path class="point"style="fill: url('#im1')"></path> -->
+        <path class="point" d="M-11.989578808281799,-11.989578808281799h23.979157616563597v23.979157616563597h-23.979157616563597Z" transform="translate(196.9205134549724,69.91224108445094)" style="width: 100px; height: 100px; fill: blue"></path>
+           
+        <div class="container">
+            <div class="row" style="height: 100px;"><a role="button" href="index.html" style=" width: 200px;">Back</a></div>
+            <div class="row">
+                <div class="col"></div>
+                <div  class="col-8" style="background-color: #eee; height: 800px; border-radius: 20px; padding: 20px;">
+                    <div style="height: 100px;"></div>
+                    <div id="task-div" style="height: 500px; display: flex; justify-content:center;">
+                    </div>
+                    <div class="container" style=" height: 100px;">
+                        <div class="row" style="padding-bottom: 20px;">
+                            Which category has highest average?
+                        </div>
+                        <div class="row" id="check-div">
+                        </div>
+                        <div class="row" style="padding-top: 20px; display: flex; justify-content:center;">
+                            <button type="button" id="show-ans-btn" class="btn btn-primary" style="width: 200px; margin-right: 20px;">Show answer</button>
+                            <button type="button" id="next-task-btn" class="btn btn-primary" style="width: 200px; margin-right: 20px;">Next</button>
+                            <!-- <a class="btn btn-primary" id="show-ans-btn" role="button" style=" width: 200px; margin-right: 20px;">Show answer</a> -->
+                            <!-- <a class="btn btn-primary" id="next-task-btn" role="button" style=" width: 200px;">Next</a> -->
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col"></div>
+              </div>
+              
+        </div>
+
+        
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script type="module" src="./task.js" ></script>
+
+    </body>
+</html>

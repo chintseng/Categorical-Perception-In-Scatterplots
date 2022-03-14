@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <title>Scatter Plot Generator</title>
+        <link rel="shortcut icon" href="asset/favicon.ico">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link href="./index.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row" style="height: 100px;"></div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-8" style="background-color: #eee; height: 800px; border-radius: 20px; padding: 20px;">
+                    <div class="row">
+                        <h3>Number of category</h3>
+                    </div>
+                    <div class="row" style="padding-left: 10px; padding-bottom: 10px;">
+                        <select class="form-select" id="category-num-select" style="width: 70%;">
+                            <option disabled>Open this select menu</option>
+                            <option selected value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                          </select>
+                    </div>
+                    <div class="row">
+                        <h3>Number of points for per category</h3>
+                    </div>
+                    <div class="row" style="padding-left: 10px; padding-bottom: 10px;">
+                        <select class="form-select" id="point-num-select" style="width: 70%;">
+                            <option disabled>Open this select menu</option>
+                            <option selected value="5">5</option>
+                            <!-- <option value="10">10</option> -->
+                            <option value="15">15</option>
+                            <!-- <option value="20">20</option> -->
+                            <option value="25">25</option>
+                          </select>
+                    </div>
+                    <div class="row">
+                        <h3>Difficulty Level</h3>
+                    </div>
+                    <div class="row" style="padding-left: 10px; padding-bottom: 10px;">
+                        <select class="form-select" id="level-select" style="width: 70%;">
+                            <option disabled>Open this select menu</option>
+                            <option selected value="1">Level 1</option>
+                            <option value="2">Level 2</option>
+                            <option  value="3">Level 3</option>
+                          </select>
+                    </div>
+                    <div class="row">
+                        <h3>Color</h3>
+                    </div>
+                    <div class="row" style="padding-left: 10px; padding-bottom: 10px;">
+                        <select class="form-select" id="color-select" style="width: 70%;">
+                            <option disabled>Open this select menu</option>
+                            <option selected value="D3">D3</option>
+                            <option value="Tableau">Tableau</option>
+                            <option value="ColorBrewer">ColorBrewer</option>
+                            <option value="Matlab">Matlab</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <h3>Shape</h3>
+                    </div>
+                    <div class="row" style="padding-left: 10px; padding-bottom: 10px;">
+                        <div class="form-check" style="width: 70%;">
+                            <input class="form-check-input" type="checkbox" value="" id="shapeCheck">
+                            <label class="form-check-label" for="flexCheckDefault"> 
+                              Use shape
+                        </label>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-left: 10px; padding-bottom: 10px;">
+                        <!-- <a class="btn btn-primary" id="generate-button" href="task.html" role="button" style="width: 340px;">Generate</a> -->
+                        <button type="button" id="generate-button"  class="btn btn-primary" style="width: 340px;">Generate</button>
+                    </div>
+                    
+                </div>
+                <div class="col"></div>
+              </div>
+        </div> 
+
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script type="module" src="./index.js" ></script>
+
+    </body>
+</html>
