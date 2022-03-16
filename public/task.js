@@ -1,3 +1,5 @@
+import  {updateDB}  from "./firebase.js";
+
 // set the dimensions and margins of the graph
 const margin = {top: 10, right: 30, bottom: 30, left: 60},
     width = 460 - margin.left - margin.right,
@@ -13,8 +15,8 @@ const palette = {
 }
 
 let maxCatIndex;
-let taskNum = 0
-let taskCnt = 0
+let taskNum, taskCnt, useShape, colorPalette
+let timeleft = 150;
 
 const svg = d3.select("#task-div")
   .append("svg")
@@ -26,10 +28,10 @@ const svg = d3.select("#task-div")
 
 function genChart() {
     const urlParams = new URLSearchParams(window.location.search);
-    const useShape = urlParams.get('shape');
+    // useShape = urlParams.get('shape');
     taskNum = urlParams.get('task');
     taskCnt = urlParams.get('cnt');
-    let colorPalette = 'D3'
+    colorPalette = urlParams.get('color');
 
   //Read the data
     d3.csv("./task/"+taskNum+"/"+taskCnt+".csv").then(function(data) {
@@ -79,7 +81,7 @@ function genChart() {
       .domain(["0", "1", "2", "3", "4", "5"])
       .range(palette[colorPalette])
 
-    if (useShape == 'true') {
+    if (useShape == 'T') {
       svg.append('g')
       .selectAll("dot")
       .data(data)
@@ -112,9 +114,9 @@ function genChart() {
       $('#check-div').append(
         '<div class="col-sm">'+
           '<div class="form-check" '+'id="'+i.toString()+'-check-div">'+
-            '<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">'+
+            '<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='+i.toString()+'>'+
               '<label class="form-check-label" for="flexRadioDefault1">'+
-                '<div style="width: 23px; height: 23px; border-radius: 70%; background-color:'+palette['D3'][i]+';"></div>'+
+                '<div style="width: 23px; height: 23px; border-radius: 70%; background-color:'+palette[colorPalette][i]+';"></div>'+
               '</label>'+
             '</div>'+
           '</div>'
@@ -133,11 +135,48 @@ function genChart() {
 //   $(ansDivId).css("border-color", "red");
 // });
 
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 $( "#next-task-btn" ).click(function() {
-  window.location.href = "task.html?task="+taskNum+"&cnt="+(parseInt(taskCnt)+1).toString();
+  let check_id = "-1"
+  $('input[type=radio]').each(function () {
+    if (this.checked) {
+      check_id = $(this).val()
+    }
+  });
+  let my_current_data = JSON.parse(localStorage.getItem('taskData'))
+  my_current_data['Q_'+taskCnt] = [check_id, parseFloat((15-timeleft/10).toFixed(2))]
+
+  localStorage.setItem('taskData', JSON.stringify(my_current_data))
+  if (parseInt(taskCnt) == 19) {
+    
+    updateDB().then(() => {
+      window.location.href = "finish.html"
+    })
+    
+  } else {
+    window.location.href = "task.html?task="+taskNum+"&cnt="+(parseInt(taskCnt)+1).toString()+"&color="+colorPalette;
+  }
+  
 });
 
-$(document).ready(function(){
+$(document).ready(function(){  
   genChart()
+  $("#progresss-txt").text((parseInt(taskCnt)+1).toString()+"/20")
 });
+
+
+var downloadTimer = setInterval(function(){
+  if(timeleft <= 0){
+    clearInterval(downloadTimer);
+    document.getElementById("countdown").innerHTML = "Time remaining: 0";
+  } else {
+    document.getElementById("countdown").innerHTML = "Time remaining: " + timeleft/10 ;
+  }
+  timeleft -= 1;
+}, 100);
+
+
 

@@ -1,17 +1,17 @@
 
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-  }
+
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 
 $( "#start-button" ).click(function() {
-  const categoryNum = $('#category-num-select').val();
-  const pointNum = $('#point-num-select').val();
-  const color = $('#color-select').val();
-  const level = $('#level-select').val();
-  let shape = 'false'
-  if ($('#shapeCheck').is(':checked')) {
-    shape = 'true'
-  }
-  window.location.href = "task.html?task="+getRandomInt(6).toString()+"&cnt=0";
+    const colorPalette = ['D3', 'ColorBrewer']
+    // const useShape = ['T', 'F']
+    const colorChoice = colorPalette[getRandomInt(2)]
+    const taskNum = getRandomInt(6)
+    localStorage.removeItem('taskData');
+    localStorage.setItem('taskData', JSON.stringify({'task_id': taskNum, 'color': colorChoice}))
+    window.location.href = "task.html?task="+taskNum.toString()+"&cnt=0&color="+colorChoice;
 });
 
