@@ -17,12 +17,12 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Get a list of cities from your database
-async function getCities(db) {
-  const citiesCol = collection(db, 'cities');
-  const citySnapshot = await getDocs(citiesCol);
-  const cityList = citySnapshot.docs.map(doc => doc.data());
-  return cityList;
-}
+// async function getCities(db) {
+//   const citiesCol = collection(db, 'cities');
+//   const citySnapshot = await getDocs(citiesCol);
+//   const cityList = citySnapshot.docs.map(doc => doc.data());
+//   return cityList;
+// }
 
 // await setDoc(doc(db, "cities", "LA"), {
 //     name: "Los Angeles",
@@ -32,7 +32,7 @@ async function getCities(db) {
 
 async function updateDB() {
     try {
-        const docRef = await addDoc(collection(db, "tasks"), JSON.parse(localStorage.getItem('taskData')));
+        const docRef = await addDoc(collection(db, "tasks-pilot-2"), JSON.parse(localStorage.getItem('taskData')));
         console.log("Document written with ID: ", docRef.id);
 
       } catch (e) {

@@ -34,7 +34,8 @@ function genChart() {
     colorPalette = urlParams.get('color');
 
   //Read the data
-    d3.csv("./task/"+taskNum+"/"+taskCnt+".csv").then(function(data) {
+    // d3.csv("./task/"+taskNum+"/"+taskCnt+".csv").then(function(data) {
+      d3.csv("./task/pilot_2_data/"+taskNum+'/'+taskCnt+".csv").then(function(data) {
         const categoryNum = parseInt(data[data.length-1]['ca'])+1
         for (let i = 0; i < categoryNum; i++) {
           let maple = svg.append('defs')
