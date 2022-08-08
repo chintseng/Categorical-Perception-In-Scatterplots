@@ -15,7 +15,7 @@ const palette = {
 }
 
 let maxCatIndex;
-let taskNum, taskCnt, useShape, colorPalette
+let taskNum, taskCnt, useShape, colorPalette, colors
 let timeleft = 150;
 
 const svg = d3.select("#task-div")
@@ -32,6 +32,13 @@ function genChart() {
     taskNum = urlParams.get('task');
     taskCnt = urlParams.get('cnt');
     colorPalette = urlParams.get('color');
+
+    fetch("color_palettes.json")
+  .then(response => response.json())
+  .then(function(json) {
+    let colorName = json[colorPalette]
+    colors = colorName['value']
+  });
 
   //Read the data
     d3.csv("./task/sample.csv").then(function(data) {
@@ -54,7 +61,7 @@ function genChart() {
           d3.xml("./asset/"+filename+".svg")
           .then(data => {
             const node = document.createElement("style");
-            const textnode = document.createTextNode(`.cls-${i+1}{fill:${palette[colorPalette][i]};}`);
+            const textnode = document.createTextNode(`.cls-${i+1}{fill:${colors[i]};}`);
             node.appendChild(textnode);
             data.getElementById(filename).appendChild(node)
             maple.node().append(data.documentElement)
@@ -79,7 +86,7 @@ function genChart() {
 
     const color = d3.scaleOrdinal()
       .domain(["0", "1", "2", "3", "4", "5"])
-      .range(palette[colorPalette])
+      .range(colors)
 
     if (useShape == 'T') {
       svg.append('g')
@@ -116,7 +123,7 @@ function genChart() {
           '<div class="form-check" '+'id="'+i.toString()+'-check-div">'+
             '<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='+i.toString()+'>'+
               '<label class="form-check-label" for="flexRadioDefault1">'+
-                '<div style="width: 23px; height: 23px; border-radius: 70%; background-color:'+palette[colorPalette][i]+';"></div>'+
+                '<div style="width: 23px; height: 23px; border-radius: 70%; background-color:'+colors[i]+';"></div>'+
               '</label>'+
             '</div>'+
           '</div>'

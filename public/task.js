@@ -7,15 +7,9 @@ const margin = {top: 10, right: 30, bottom: 30, left: 60},
 const w = 400;
 const h = 400;
 
-const palette = {
-  'D3': ["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf"],
-  'Tableau': ["#17becf","#bcbd22","#7f7f7f", "#e377c2", "#8c564b", "#9467bd", "#d62728", "#2ca02c","#ff7f0e", "#1f77b4"],
-  'Matlab': ['#0072BD', '#D95319', 	'#EDB120', '#7E2F8E',	'#77AC30', '#4DBEEE', '#A2142F'],
-  'ColorBrewer': ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928"],
-}
-
 let maxCatIndex;
 let taskNum, taskCnt, useShape, colorPalette
+let colors
 let timeleft = 150;
 
 const svg = d3.select("#task-div")
@@ -25,7 +19,6 @@ const svg = d3.select("#task-div")
   .append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-
 function genChart() {
     const urlParams = new URLSearchParams(window.location.search);
     // useShape = urlParams.get('shape');
@@ -33,34 +26,41 @@ function genChart() {
     taskCnt = urlParams.get('cnt');
     colorPalette = urlParams.get('color');
 
-  //Read the data
-    // d3.csv("./task/"+taskNum+"/"+taskCnt+".csv").then(function(data) {
-      d3.csv("./task/pilot_2_data/"+taskNum+'/'+taskCnt+".csv").then(function(data) {
-        const categoryNum = parseInt(data[data.length-1]['ca'])+1
-        for (let i = 0; i < categoryNum; i++) {
-          let maple = svg.append('defs')
-          .append('pattern')
-          .attr('id', 'shape_'+i)
-          .attr('patternUnits', 'objectBoundingBox')
-          .attr('width', 10)
-          .attr('height', 10)
-          // Append svg to pattern
-          .append('svg')
-          .attr('x', 0)
-          .attr('y', 0)
-          .attr('width', 10)
-          .attr('height', 10)
+  fetch("color_palettes.json")
+  .then(response => response.json())
+  .then(function(json) {
+    let colorName = json[colorPalette]
+    colors = colorName['value']
+  });
 
-          let filename = "s" + (i+1)
-          d3.xml("./asset/"+filename+".svg")
-          .then(data => {
-            const node = document.createElement("style");
-            const textnode = document.createTextNode(`.cls-${i+1}{fill:${palette[colorPalette][i]};}`);
-            node.appendChild(textnode);
-            data.getElementById(filename).appendChild(node)
-            maple.node().append(data.documentElement)
-          });
-        }
+  //Read the data
+    d3.csv("./dataset/"+taskNum+"/"+taskCnt+".csv").then(function(data) {
+      // d3.csv("./task/pilot_2_data/"+taskNum+'/'+taskCnt+".csv").then(function(data) {
+        const categoryNum = parseInt(data[data.length-1]['ca'])+1
+        // for (let i = 0; i < categoryNum; i++) {
+        //   let maple = svg.append('defs')
+        //   .append('pattern')
+        //   .attr('id', 'shape_'+i)
+        //   .attr('patternUnits', 'objectBoundingBox')
+        //   .attr('width', 10)
+        //   .attr('height', 10)
+        //   // Append svg to pattern
+        //   .append('svg')
+        //   .attr('x', 0)
+        //   .attr('y', 0)
+        //   .attr('width', 10)
+        //   .attr('height', 10)
+
+          // let filename = "s" + (i+1)
+          // d3.xml("./asset/"+filename+".svg")
+          // .then(data => {
+          //   const node = document.createElement("style");
+          //   const textnode = document.createTextNode(`.cls-${i+1}{fill:${palette[colorPalette][i]};}`);
+          //   node.appendChild(textnode);
+          //   data.getElementById(filename).appendChild(node)
+          //   maple.node().append(data.documentElement)
+          // });
+        // }
 
 
     const x = d3.scaleLinear()
@@ -79,8 +79,8 @@ function genChart() {
       .call(d3.axisLeft(y).tickFormat((domainn,number)=>{return ""}));
 
     const color = d3.scaleOrdinal()
-      .domain(["0", "1", "2", "3", "4", "5"])
-      .range(palette[colorPalette])
+      .domain(["0", "1", "2", "3", "4", "5", '6', '7', '8', '9'])
+      .range(colors)
 
     if (useShape == 'T') {
       svg.append('g')
@@ -103,7 +103,7 @@ function genChart() {
       .join("circle")
       .attr("cx", function (d) { return x(d.x); } )
       .attr("cy", function (d) { return y(d.y); } )
-      .attr("r", 5)
+      .attr("r", 3)
       .style("fill", function (d) { return color(d.ca) } )
     }
     
@@ -117,7 +117,7 @@ function genChart() {
           '<div class="form-check" '+'id="'+i.toString()+'-check-div">'+
             '<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='+i.toString()+'>'+
               '<label class="form-check-label" for="flexRadioDefault1">'+
-                '<div style="width: 23px; height: 23px; border-radius: 70%; background-color:'+palette[colorPalette][i]+';"></div>'+
+                '<div style="width: 23px; height: 23px; border-radius: 70%; background-color:'+colors[i]+';"></div>'+
               '</label>'+
             '</div>'+
           '</div>'
@@ -151,7 +151,7 @@ $( "#next-task-btn" ).click(function() {
   my_current_data['Q_'+taskCnt] = [check_id, parseFloat((15-timeleft/10).toFixed(2))]
 
   localStorage.setItem('taskData', JSON.stringify(my_current_data))
-  if (parseInt(taskCnt) == 19) {
+  if (parseInt(taskCnt) == 41) {
     
     updateDB().then(() => {
       window.location.href = "finish.html"
@@ -165,7 +165,7 @@ $( "#next-task-btn" ).click(function() {
 
 $(document).ready(function(){  
   genChart()
-  $("#progresss-txt").text((parseInt(taskCnt)+1).toString()+"/20")
+  $("#progresss-txt").text((parseInt(taskCnt)+1).toString()+"/45")
 });
 
 

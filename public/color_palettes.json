@@ -1,0 +1,152 @@
+{
+    "DO9875JDFI": {
+        "name": "ColorBrewerPaired",
+        "value": [
+            "#a6cee3",
+            "#1f78b4",
+            "#b2df8a",
+            "#33a02c",
+            "#fb9a99",
+            "#e31a1c",
+            "#fdbf6f",
+            "#ff7f00",
+            "#cab2d6",
+            "#6a3d9a"
+        ]
+    },
+    "MAJY99HFEX": {
+        "name": "ColorBrewerSet3",
+        "value": [
+            "#8dd3c7",
+            "#ffffb3",
+            "#bebada",
+            "#fb8072",
+            "#80b1d3",
+            "#fdb462",
+            "#b3de69",
+            "#fccde5",
+            "#d9d9d9",
+            "#bc80bd"
+        ]
+    },
+    "STV159ELKG": {
+        "name": "D3Cat10",
+        "value": [
+            "#1f77b4",
+            "#ff7f0e",
+            "#2ca02c",
+            "#d62728",
+            "#9467bd",
+            "#8c564b",
+            "#e377c2",
+            "#7f7f7f",
+            "#bcbd22",
+            "#17becf"
+        ]
+    },
+    "WYIRRHR7Q3": {
+        "name": "Tab10",
+        "value": [
+            "#4e79a7",
+            "#f28e2c",
+            "#e15759",
+            "#76b7b2",
+            "#59a14f",
+            "#edc949",
+            "#af7aa1",
+            "#ff9da7",
+            "#9c755f",
+            "#bab0ab"
+        ]
+    },
+    "NAZQK5BWGI": {
+        "name": "PaulTolMuted",
+        "value": [
+            "#CC6677",
+            "#332288",
+            "#DDCC77",
+            "#117733",
+            "#88CCEE",
+            "#882255",
+            "#44AA99",
+            "#999933",
+            "#AA4499",
+            "#dddddd"
+        ]
+    },
+    "JZLWQFFCR6": {
+        "name": "SFSOParties",
+        "value": [
+            "#6268af",
+            "#f3a05d",
+            "#ea536f",
+            "#557d34",
+            "#cbd400",
+            "#ffff00",
+            "#24b400",
+            "#792a8f",
+            "#9fabd9",
+            "#f0da9d"
+        ]
+    },
+    "MIK6X2AFSE": {
+        "name": "StataS2",
+        "value": [
+            "#1a466f",
+            "#8f353b",
+            "#55752e",
+            "#e47d01",
+            "#6f8e84",
+            "#c10534",
+            "#948dd2",
+            "#cbc27d",
+            "#a1522c",
+            "#7c92a8"
+        ]
+    },
+    "VBONURWIOD": {
+        "name": "StataS1",
+        "value": [
+            "#036001",
+            "#ff4500",
+            "#194770",
+            "#903539",
+            "#6f8e84",
+            "#a0522d",
+            "#ff7f00",
+            "#ff00ff",
+            "#03fffe",
+            "#ff0000"
+        ]
+    },
+    "QOUCJZHUYU": {
+        "name": "CartoBold",
+        "value": [
+            "#7f3d8e",
+            "#15a479",
+            "#3a69ac",
+            "#f2b702",
+            "#e73f75",
+            "#81ba5c",
+            "#e8830f",
+            "#008695",
+            "#cf1a90",
+            "#f97b72"
+        ]
+    },
+    "BIX1LLYKD0": {
+        "name": "CartoPastel",
+        "value": [
+            "#64c5cc",
+            "#f8ce71",
+            "#f89b74",
+            "#dcb0f2",
+            "#88c560",
+            "#9eb9f3",
+            "#fe87b1",
+            "#c9db74",
+            "#8ce0a3",
+            "#b297e7"
+        ]
+    }
+}
