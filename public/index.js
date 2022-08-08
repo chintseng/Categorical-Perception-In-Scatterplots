@@ -15,6 +15,8 @@ fetch("color_name_code.json")
 $( "#start-button" ).click(function() {
     const taskNum = getRandomInt(10)
     localStorage.removeItem('taskData');
-    localStorage.setItem('taskData', JSON.stringify({'task_id': taskNum, 'color': colorSelected}))
-    window.location.href = "sample.html?task="+taskNum+"&cnt=0&color="+colorSelected;
+    // localStorage.setItem('taskData', JSON.stringify({'task_id': taskNum, 'color': colorSelected}))
+    window.location.href = "information.html"
+    // window.location.href = "information.html?task="+taskNum+"&cnt=0&color="+colorSelected;
 });
+

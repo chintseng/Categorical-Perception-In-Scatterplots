@@ -1,5 +1,24 @@
 import  {updateDB}  from "./firebase.js";
 
+function shuffle(array) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+
+
 // set the dimensions and margins of the graph
 const margin = {top: 10, right: 30, bottom: 30, left: 60},
     width = 460 - margin.left - margin.right,
@@ -31,7 +50,8 @@ function genChart() {
   .then(function(json) {
     let colorName = json[colorPalette]
     colors = colorName['value']
-  });
+    shuffle(colors)
+  
 
   //Read the data
     d3.csv("./dataset/"+taskNum+"/"+taskCnt+".csv").then(function(data) {
@@ -127,6 +147,7 @@ function genChart() {
     maxCatIndex = averagesList.indexOf(Math.max(...averagesList)).toString();
 
   })
+});
 }
 
 // $( "#show-ans-btn" ).click(function() {
