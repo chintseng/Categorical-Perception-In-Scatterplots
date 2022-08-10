@@ -35,6 +35,7 @@ const svg = d3.select("#task-div")
   .append("svg")
   .attr("width",  width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
+  .attr('style', 'background-color: white')
   .append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
@@ -55,7 +56,6 @@ function genChart() {
 
   //Read the data
     d3.csv("./dataset/"+taskNum+"/"+taskCnt+".csv").then(function(data) {
-      // d3.csv("./task/pilot_2_data/"+taskNum+'/'+taskCnt+".csv").then(function(data) {
         const categoryNum = parseInt(data[data.length-1]['ca'])+1
         // for (let i = 0; i < categoryNum; i++) {
         //   let maple = svg.append('defs')
@@ -133,9 +133,9 @@ function genChart() {
     for(let i = 0; i < categoryNum; i++) {
       averagesList.push(d3.mean(data.filter(function(d){ return d.ca == i.toString() }), function(d) { return d.y; }))
       $('#check-div').append(
-        '<div class="col-sm">'+
+        '<div class="col-sm" style="background-color: white">'+
           '<div class="form-check" '+'id="'+i.toString()+'-check-div">'+
-            '<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='+i.toString()+'>'+
+            '<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='+i.toString()+' required >'+
               '<label class="form-check-label" for="flexRadioDefault1">'+
                 '<div style="width: 23px; height: 23px; border-radius: 70%; background-color:'+colors[i]+';"></div>'+
               '</label>'+
@@ -150,19 +150,15 @@ function genChart() {
 });
 }
 
-// $( "#show-ans-btn" ).click(function() {
-//   const ansDivId = '#' + maxCatIndex + '-check-div'
-//   $(ansDivId).css("border-style", "solid");
-//   $(ansDivId).css("border-width", "2px");
-//   $(ansDivId).css("border-color", "red");
-// });
-
 function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-$( "#next-task-btn" ).click(function() {
+$("#my-form").submit(function( event ) {
+  event.preventDefault();
   let check_id = "-1"
+
+  
   $('input[type=radio]').each(function () {
     if (this.checked) {
       check_id = $(this).val()
@@ -181,8 +177,30 @@ $( "#next-task-btn" ).click(function() {
   } else {
     window.location.href = "task.html?task="+taskNum+"&cnt="+(parseInt(taskCnt)+1).toString()+"&color="+colorPalette;
   }
-  
 });
+
+// $( "#next-task-btn" ).click(function() {
+//   let check_id = "-1"
+//   $('input[type=radio]').each(function () {
+//     if (this.checked) {
+//       check_id = $(this).val()
+//     }
+//   });
+//   let my_current_data = JSON.parse(localStorage.getItem('taskData'))
+//   my_current_data['Q_'+taskCnt] = [check_id, parseFloat((15-timeleft/10).toFixed(2))]
+
+//   localStorage.setItem('taskData', JSON.stringify(my_current_data))
+//   if (parseInt(taskCnt) == 41) {
+    
+//     updateDB().then(() => {
+//       window.location.href = "finish.html"
+//     })
+    
+//   } else {
+//     window.location.href = "task.html?task="+taskNum+"&cnt="+(parseInt(taskCnt)+1).toString()+"&color="+colorPalette;
+//   }
+  
+// });
 
 $(document).ready(function(){  
   genChart()

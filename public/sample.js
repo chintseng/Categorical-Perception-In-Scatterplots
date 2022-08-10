@@ -1,5 +1,3 @@
-import  {updateDB}  from "./firebase.js";
-
 function shuffle(array) {
   let currentIndex = array.length,  randomIndex;
 
@@ -18,6 +16,11 @@ function shuffle(array) {
   return array;
 }
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+
 // set the dimensions and margins of the graph
 const margin = {top: 10, right: 30, bottom: 30, left: 60},
     width = 460 - margin.left - margin.right,
@@ -26,7 +29,7 @@ const w = 400;
 const h = 400;
 
 let maxCatIndex;
-let taskNum, taskCnt, useShape, colorPalette, colors
+let taskNum, taskCnt, useShape, colorPalette, colors, sampleCnt
 let timeleft = 150;
 let alreadyClick = false
 
@@ -34,39 +37,41 @@ const svg = d3.select("#task-div")
   .append("svg")
   .attr("width",  width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
+  .attr('style', 'background-color: white')
   .append("g")
-  .attr("transform", `translate(${margin.left}, ${margin.top})`);
-
+  .attr("transform", `translate(${margin.left}, ${margin.top})`)
 
 function genChart() {
     const urlParams = new URLSearchParams(window.location.search);
-    // useShape = urlParams.get('shape');
-    taskNum = urlParams.get('task');
-    taskCnt = urlParams.get('cnt');
-    colorPalette = urlParams.get('color');
+    sampleCnt = urlParams.get('samplecnt');
+
+    if (parseInt(sampleCnt) == 3) {
+      $('#try-more-btn').hide()
+    }
 
     fetch("color_palettes.json")
       .then(response => response.json())
       .then(function(json) {
-          let colorName = json[colorPalette]
+          let colorName = json['DO9875JDFI']
           colors = colorName['value']
           shuffle(colors)
 
-          d3.csv("./asset/sample-1.csv").then(function(data) {
+          d3.csv("./asset/sample-"+sampleCnt+".csv").then(function(data) {
+            // d3.csv("./example.csv").then(function(data) {
               const categoryNum = parseInt(data[data.length-1]['ca'])+1
-              for (let i = 0; i < categoryNum; i++) {
-                let maple = svg.append('defs')
-                .append('pattern')
-                .attr('id', 'shape_'+i)
-                .attr('patternUnits', 'objectBoundingBox')
-                .attr('width', 10)
-                .attr('height', 10)
-                // Append svg to pattern
-                .append('svg')
-                .attr('x', 0)
-                .attr('y', 0)
-                .attr('width', 10)
-                .attr('height', 10)
+              // for (let i = 0; i < categoryNum; i++) {
+              //   let maple = svg.append('defs')
+              //   .append('pattern')
+              //   .attr('id', 'shape_'+i)
+              //   .attr('patternUnits', 'objectBoundingBox')
+              //   .attr('width', 10)
+              //   .attr('height', 10)
+              //   // Append svg to pattern
+              //   .append('svg')
+              //   .attr('x', 0)
+              //   .attr('y', 0)
+              //   .attr('width', 10)
+              //   .attr('height', 10)
 
                 // let filename = "s" + (i+1)
                 // d3.xml("./asset/"+filename+".svg")
@@ -77,7 +82,7 @@ function genChart() {
                 //   data.getElementById(filename).appendChild(node)
                 //   maple.node().append(data.documentElement)
                 // });
-              }
+              // }
 
 
           const x = d3.scaleLinear()
@@ -130,7 +135,7 @@ function genChart() {
           for(let i = 0; i < categoryNum; i++) {
             averagesList.push(d3.mean(data.filter(function(d){ return d.ca == i.toString() }), function(d) { return d.y; }))
             $('#check-div').append(
-              '<div class="col-sm" id="ans-'+i.toString()+'">'+
+              '<div class="col-sm" style="background-color: white" id="ans-'+i.toString()+'">'+
                 '<div class="form-check" '+'id="'+i.toString()+'-check-div">'+
                   '<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='+i.toString()+'>'+
                     '<label class="form-check-label" for="flexRadioDefault1">'+
@@ -159,15 +164,31 @@ function genChart() {
       });
 }
 
+$( "#try-more-btn" ).click(function() {
+  window.location.href = "sample.html?samplecnt="+(parseInt(sampleCnt)+1).toString()
+});
+
 $( "#start-task-btn" ).click(function() {
-    window.location.href = "task.html?task="+taskNum+"&cnt=0"+"&color="+colorPalette;
+
+  fetch("color_name_code.json")
+    .then(response => response.json())
+    .then(function(json) {
+      const colorSelected = json[getRandomInt(10)]
+      localStorage.setItem('taskData', JSON.stringify({'task_id': taskNum, 'color': colorSelected}))
+      fetch("./asset/task_id_code.json")
+        .then(response => response.json())
+        .then(function(json) {
+            const taskNum = json[getRandomInt(10)]
+            window.location.href = "task.html?task="+taskNum+"&cnt=0&color="+colorSelected;
+        })
+  });
 });
 
 $(document).ready(function(){  
   genChart()
+  $("#progresss-txt").text(sampleCnt+"/3")
+  
 });
-
-
 
 var downloadTimer = setInterval(function(){
   if(timeleft <= 0){
