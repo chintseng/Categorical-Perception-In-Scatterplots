@@ -19,4 +19,3 @@ $( "#start-button" ).click(function() {
     window.location.href = "information.html"
     // window.location.href = "information.html?task="+taskNum+"&cnt=0&color="+colorSelected;
 });
-

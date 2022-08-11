@@ -27,6 +27,7 @@ const w = 400;
 const h = 400;
 
 let maxCatIndex;
+let categoryNum;
 let taskNum, taskCnt, useShape, colorPalette
 let colors
 let timeleft = 150;
@@ -56,7 +57,7 @@ function genChart() {
 
   //Read the data
     d3.csv("./dataset/"+taskNum+"/"+taskCnt+".csv").then(function(data) {
-        const categoryNum = parseInt(data[data.length-1]['ca'])+1
+        categoryNum = parseInt(data[data.length-1]['ca'])+1
         // for (let i = 0; i < categoryNum; i++) {
         //   let maple = svg.append('defs')
         //   .append('pattern')
@@ -165,10 +166,14 @@ $("#my-form").submit(function( event ) {
     }
   });
   let my_current_data = JSON.parse(localStorage.getItem('taskData'))
-  my_current_data['Q_'+taskCnt] = [check_id, parseFloat((15-timeleft/10).toFixed(2))]
+  let responseData = {}
+  responseData['time'] = parseFloat((15-timeleft/10).toFixed(2))
+  responseData['ans'] = check_id
+  responseData['colors'] = colors.slice(0, categoryNum)
+  my_current_data['Q_'+taskCnt] = responseData
 
   localStorage.setItem('taskData', JSON.stringify(my_current_data))
-  if (parseInt(taskCnt) == 41) {
+  if (parseInt(taskCnt) == 44) {
     
     updateDB().then(() => {
       window.location.href = "finish.html"

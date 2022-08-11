@@ -174,11 +174,19 @@ $( "#start-task-btn" ).click(function() {
     .then(response => response.json())
     .then(function(json) {
       const colorSelected = json[getRandomInt(10)]
-      localStorage.setItem('taskData', JSON.stringify({'task_id': taskNum, 'color': colorSelected}))
+
       fetch("./asset/task_id_code.json")
         .then(response => response.json())
         .then(function(json) {
-            const taskNum = json[getRandomInt(10)]
+          
+          const taskNum = json[getRandomInt(10)]
+            let my_current_data = JSON.parse(localStorage.getItem('taskData'))
+            my_current_data['task_info'] = {
+              'task_id': taskNum,
+              'color_palette': colorSelected,
+              'time': Math.floor(Date.now() / 1000)
+            }
+            localStorage.setItem('taskData', JSON.stringify(my_current_data))
             window.location.href = "task.html?task="+taskNum+"&cnt=0&color="+colorSelected;
         })
   });

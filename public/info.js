@@ -1,3 +1,4 @@
+import  {updateDB}  from "./firebase.js";
 
 let newOptions = []
 for (let i = 18; i < 66; i++) {
@@ -13,7 +14,7 @@ $.each(newOptions, function(key, value) {
 for(let i = 1; i < 11; i++) {
   $('#familiar-checkbox-div').append(
     '<div class="form-check form-check-inline">'
-     +'<input class="form-check-input" type="radio" name="familiarOptions" id="inlineRadio1" value="'+i.toString()+'" required>'
+     +'<input class="form-check-input" type="radio" name="familiarLevel" id="inlineRadio1" value="'+i.toString()+'" required>'
         +'<label class="form-check-label" for="inlineRadio1">'+i.toString()+'</label>'
     +'</div>'
   )
@@ -26,8 +27,11 @@ $( "#my-form" ).submit(function( event ) {
   
   $.each($('#my-form').serializeArray(), function(i, field) {
     values[field.name] = field.value;
+    // console.log(values)
 });
-  // const queryString = window.location.search;
+
+  localStorage.setItem('taskData', JSON.stringify({'user_info': values}))
 
   window.location.href = "colorblindScreener.html";
+  
 });
