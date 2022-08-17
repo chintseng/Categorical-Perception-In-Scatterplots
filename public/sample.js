@@ -125,7 +125,7 @@ function genChart() {
             .join("circle")
             .attr("cx", function (d) { return x(d.x); } )
             .attr("cy", function (d) { return y(d.y); } )
-            .attr("r", 3)
+            .attr("r", 4)
             .style("fill", function (d) { return color(d.ca) } )
           }
           
