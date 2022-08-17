@@ -124,7 +124,7 @@ function genChart() {
       .join("circle")
       .attr("cx", function (d) { return x(d.x); } )
       .attr("cy", function (d) { return y(d.y); } )
-      .attr("r", 3.)
+      .attr("r", 4.)
       .style("fill", function (d) { return color(d.ca) } )
     }
     
@@ -175,8 +175,8 @@ $("#my-form").submit(function( event ) {
   localStorage.setItem('taskData', JSON.stringify(my_current_data))
   if (parseInt(taskCnt) == 44) {
     
-    updateDB().then(() => {
-      window.location.href = "finish.html"
+    updateDB().then((id) => {
+      window.location.href = "finish.html?code="+id
     })
     
   } else {

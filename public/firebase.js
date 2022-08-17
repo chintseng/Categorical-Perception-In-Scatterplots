@@ -31,13 +31,15 @@ const db = getFirestore(app);
 //   });
 
 async function updateDB() {
+    let uploadedDocid
     try {
         const docRef = await addDoc(collection(db, "lab-pre-trial"), JSON.parse(localStorage.getItem('taskData')));
-        console.log("Document written with ID: ", docRef.id);
+        uploadedDocid = docRef.id
 
-      } catch (e) {
+    } catch (e) {
         console.error("Error adding document: ", e);
-      }
+    }
+    return uploadedDocid
 }
 
 export { updateDB };
