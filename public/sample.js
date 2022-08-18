@@ -57,7 +57,7 @@ function genChart() {
           shuffle(colors)
 
           d3.csv("./asset/sample-"+sampleCnt+".csv").then(function(data) {
-            // d3.csv("./example.csv").then(function(data) {
+            // d3.csv("./asset/example.csv").then(function(data) {
               const categoryNum = parseInt(data[data.length-1]['ca'])+1
               // for (let i = 0; i < categoryNum; i++) {
               //   let maple = svg.append('defs')
@@ -125,7 +125,7 @@ function genChart() {
             .join("circle")
             .attr("cx", function (d) { return x(d.x); } )
             .attr("cy", function (d) { return y(d.y); } )
-            .attr("r", 4)
+            .attr("r", 3.5)
             .style("fill", function (d) { return color(d.ca) } )
           }
           
