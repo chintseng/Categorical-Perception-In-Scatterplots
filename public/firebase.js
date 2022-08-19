@@ -13,7 +13,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
 
 // Get a list of cities from your database
@@ -33,7 +32,7 @@ const db = getFirestore(app);
 async function updateDB() {
     let uploadedDocid
     try {
-        const docRef = await addDoc(collection(db, "lab-pre-trial"), JSON.parse(localStorage.getItem('taskData')));
+        const docRef = await addDoc(collection(db, "assignments"), JSON.parse(localStorage.getItem('taskData')));
         uploadedDocid = docRef.id
 
     } catch (e) {

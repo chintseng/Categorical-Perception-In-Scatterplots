@@ -17,10 +17,18 @@ $( "#my-form" ).submit(function( event ) {
             flag = false
         }
     } 
+    let my_current_data = JSON.parse(localStorage.getItem('taskData'))
     if (flag) {
-        window.location.href = "qualify.html";
+        if (my_current_data['user_info']['qualify'] != false) {
+            my_current_data['user_info']['qualify'] = true
+            localStorage.setItem('taskData', JSON.stringify(my_current_data))
+            window.location.href = "qualify.html";
+        } else {
+            window.location.href = "notqualify.html"
+        }
     } else {
+        my_current_data['user_info']['qualify'] = false
+        localStorage.setItem('taskData', JSON.stringify(my_current_data))
         window.location.href = "notqualify.html"
-    }    
-
+    }  
 });
