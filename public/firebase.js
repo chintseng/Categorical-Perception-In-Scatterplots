@@ -32,7 +32,7 @@ const db = getFirestore(app);
 async function updateDB() {
     let uploadedDocid
     try {
-        const docRef = await addDoc(collection(db, "assignments"), JSON.parse(localStorage.getItem('taskData')));
+        const docRef = await addDoc(collection(db, "assignments-2"), JSON.parse(localStorage.getItem('taskData')));
         uploadedDocid = docRef.id
 
     } catch (e) {
